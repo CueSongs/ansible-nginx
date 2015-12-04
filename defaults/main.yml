@@ -1,6 +1,6 @@
 ---
 app: {
-    root: "/var/www"
+    root: "/var/www",
     web: "/var/www"
 }
 
