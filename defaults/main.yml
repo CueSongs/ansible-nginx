@@ -10,7 +10,7 @@ server: {
             proxy_read_timeout: 300,
             client_max_body_size: 64M,
             autoindex: "off",
-            fastcgi_pass: "127.0.0.0:9000",
+            fastcgi_pass: "127.0.0.1:9000",
             fastcgi_buffers: "8 16k",
             fastcgi_buffer_size: "32k",
             fastcgi_connect_timeout: 600,
