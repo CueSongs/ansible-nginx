@@ -11,12 +11,6 @@
   template: src=default.conf.j2 dest={{ server.nginx.vhost_file }} mode=0755 owner=root
   sudo: yes
 
-- name: Remove web-root
-  file: path=/var/www state=absent
-
-- name: Link app-root and web-root
-  file: src={{ app.web }} dest=/var/www state=link
-
 - name: Start nginx
   service: name=nginx state=started enabled=yes
   notify: restart nginx
