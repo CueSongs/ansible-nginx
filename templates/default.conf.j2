@@ -2,7 +2,11 @@
 
 server {
         listen   80 default_server;
+        server_name {{ app.domain }};
 
+        {% server.nginx.redirect_to_https is defined %}
+        return         301 https://$server_name$request_uri;
+        {% else %}
         root {{ app.web }};
         index index.php index.html index.htm;
 
@@ -26,10 +30,12 @@ server {
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                 include fastcgi_params;
         }
+        {% endif %}
 }
 
 server {
         listen   443 ssl;
+        server_name {{ app.domain }};
 
         root {{ app.web }};
         index index.php index.html index.htm;
