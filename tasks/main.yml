@@ -3,6 +3,14 @@
 - name: Install nginx
   apt: name=nginx state=present
 
+- name: Install Apache Utils
+  apt: name=apache2-utils state=present
+
+- name: Create password
+  shell: "htpasswd -b -c /etc/nginx/.htpasswd {{ server.nginx.http_auth.username }} {{ server.nginx.http_auth.password }} "
+  when: server.nginx.http_auth is defined
+  sudo: yes
+
 - name: Copy nginx configuration for Magento
   template: src=nginx.conf dest=/etc/nginx/nginx.conf
   notify: restart nginx

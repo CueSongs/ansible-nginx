@@ -44,10 +44,20 @@ server {
         client_max_body_size {{ server.nginx.vhost.client_max_body_size }};
 
         ssl on;
+        {% if server.ssl.chained_cert is defined %}
+        ssl_certificate    /etc/ssl/{{ server.ssl.chained_cert }} ;
+        {% else %}
         ssl_certificate    /etc/ssl/{{ server.ssl.cert }} ;
+        {% endif %}
         ssl_certificate_key    /etc/ssl/{{ server.ssl.key }} ;
 
         location / {
+
+              {% if server.nginx.http_auth is defined %}
+              auth_basic "Restricted";
+              auth_basic_user_file /etc/nginx/.htpasswd;
+              {% endif %}
+
              try_files $uri $uri/ /index.php$is_args$args;
         }
 
