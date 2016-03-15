@@ -11,7 +11,7 @@
   when: server.nginx.http_auth is defined
   sudo: yes
 
-- name: Copy nginx configuration for Magento
+- name: Copy nginx configuration
   template: src=nginx.conf dest=/etc/nginx/nginx.conf
   notify: restart nginx
 
